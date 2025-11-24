@@ -1,4 +1,6 @@
+using System.Drawing.Printing;
 using System.IO;
+using System.Reflection.Metadata;
 using System.Windows.Forms;
 
 namespace Notepad
@@ -18,7 +20,14 @@ namespace Notepad
 
         private void NotepadForm_Load(object sender, EventArgs e)
         {
-
+            if (Control.IsKeyLocked(Keys.CapsLock))
+            {
+                CapsToolStripStatusLabel.Text = "CAPS ON";
+            }
+            else
+            {
+                CapsToolStripStatusLabel.Text = "CAPS OFF";
+            }
         }
 
         /// <summary>
@@ -56,6 +65,7 @@ namespace Notepad
             this.Text = "Untitled - Notepad";
             undoToolStripMenuItem.Enabled = false;
             redoToolStripMenuItem.Enabled = false;
+            MessageToolStripStatusLabel.Text = "New file (unsaved)";
         }
 
         private void exitApplicationToolStripMenuItem_Click(object sender, EventArgs e)
@@ -87,6 +97,8 @@ namespace Notepad
 
                 undoToolStripMenuItem.Enabled = false;
                 redoToolStripMenuItem.Enabled = false;
+
+                MessageToolStripStatusLabel.Text = "File opened";
             }
 
         }
@@ -121,6 +133,8 @@ namespace Notepad
                 isCurrentFileSaved = true;
                 isCurrentFileDirty = false;
             }
+
+            MessageToolStripStatusLabel.Text = "Changes saved.";
         }
 
         // Save As
@@ -147,6 +161,8 @@ namespace Notepad
                 isCurrentFileSaved = true;
                 isCurrentFileDirty = false;
                 currentFileName = saveFileDialog.FileName;
+
+                MessageToolStripStatusLabel.Text = "File saved.";
             }
         }
 
@@ -154,6 +170,7 @@ namespace Notepad
         {
             isCurrentFileDirty = true;
             undoToolStripMenuItem.Enabled = true;
+            MessageToolStripStatusLabel.Text = "File editing...";
         }
 
         private void undoToolStripMenuItem_Click(object sender, EventArgs e)
@@ -227,6 +244,128 @@ namespace Notepad
             {
                 MainRichTextBox.SelectionColor = colorDialog.Color;
             }
+        }
+
+        private void MainRichTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (Control.IsKeyLocked(Keys.CapsLock))
+            {
+                CapsToolStripStatusLabel.Text = "CAPS ON";
+            }
+            else
+            {
+                CapsToolStripStatusLabel.Text = "CAPS OFF";
+            }
+        }
+
+        private void undoToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            undoToolStripMenuItem_Click(sender, e);
+        }
+
+        private void redoToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            redoToolStripMenuItem_Click(sender, e);
+        }
+
+        private void normalToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            normalToolStripMenuItem_Click(sender, e);
+        }
+
+        private void boldToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            boldToolStripMenuItem_Click(sender, e);
+        }
+
+        private void italicToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            italicToolStripMenuItem_Click(sender, e);
+        }
+
+        private void underlineToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            underlineToolStripMenuItem_Click(sender, e);
+        }
+
+        private void strikethroughToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            strikethroughToolStripMenuItem_Click(sender, e);
+        }
+
+        private void cutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MainRichTextBox.Cut();
+        }
+
+        private void copyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MainRichTextBox.Copy();
+        }
+
+        private void pasteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MainRichTextBox.Paste();
+        }
+
+        private void printPreviewToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PrintPreviewDialog printPreviewDialog = new PrintPreviewDialog();
+            PrintDocument documentToPrint = new PrintDocument();
+            documentToPrint.PrintPage += new PrintPageEventHandler(DocumentToPrint_PrintPage);
+            printPreviewDialog.Document = documentToPrint;
+            printPreviewDialog.ShowDialog();
+        }
+
+
+        private void DocumentToPrint_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            StringReader reader = new StringReader(MainRichTextBox.Text);
+            float LinesPerPage = 0;
+            float YPosition = 0;
+            int Count = 0;
+            float LeftMargin = e.MarginBounds.Left;
+            float TopMargin = e.MarginBounds.Top;
+            string Line = null;
+            Font PrintFont = this.MainRichTextBox.Font;
+            SolidBrush PrintBrush = new SolidBrush(Color.Black);
+
+            LinesPerPage = e.MarginBounds.Height / PrintFont.GetHeight(e.Graphics);
+
+            while (Count < LinesPerPage && ((Line = reader.ReadLine()) != null))
+            {
+                YPosition = TopMargin + (Count * PrintFont.GetHeight(e.Graphics));
+                e.Graphics.DrawString(Line, PrintFont, PrintBrush, LeftMargin, YPosition, new StringFormat());
+                Count++;
+            }
+
+            if (Line != null)
+            {
+                e.HasMorePages = true;
+            }
+            else
+            {
+                e.HasMorePages = false;
+            }
+            PrintBrush.Dispose();
+        }
+
+        private void printToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PrintDialog printDialog = new PrintDialog();
+            PrintDocument documentToPrint = new PrintDocument();
+            printDialog.Document = documentToPrint;
+
+            if (printDialog.ShowDialog() == DialogResult.OK)
+            {
+                documentToPrint.PrintPage += new PrintPageEventHandler(DocumentToPrint_PrintPage);
+                documentToPrint.Print();
+            }
+        }
+
+        private void developerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Developed by Viktor Monastyrnyi (on 24.11.2025)", "Developer Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }
