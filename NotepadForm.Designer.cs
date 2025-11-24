@@ -60,6 +60,9 @@
             caesarCipherToolStripMenuItem = new ToolStripMenuItem();
             encodeToolStripMenuItem = new ToolStripMenuItem();
             decodeToolStripMenuItem = new ToolStripMenuItem();
+            gammaCipherToolStripMenuItem = new ToolStripMenuItem();
+            encodeToolStripMenuItem1 = new ToolStripMenuItem();
+            decodeToolStripMenuItem1 = new ToolStripMenuItem();
             helpToolStripMenuItem = new ToolStripMenuItem();
             aboutNotepadToolStripMenuItem = new ToolStripMenuItem();
             developerToolStripMenuItem = new ToolStripMenuItem();
@@ -281,7 +284,7 @@
             // 
             // ciphersToolStripMenuItem
             // 
-            ciphersToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { caesarCipherToolStripMenuItem });
+            ciphersToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { caesarCipherToolStripMenuItem, gammaCipherToolStripMenuItem });
             ciphersToolStripMenuItem.Name = "ciphersToolStripMenuItem";
             ciphersToolStripMenuItem.Size = new Size(72, 24);
             ciphersToolStripMenuItem.Text = "Ciphers";
@@ -296,16 +299,37 @@
             // encodeToolStripMenuItem
             // 
             encodeToolStripMenuItem.Name = "encodeToolStripMenuItem";
-            encodeToolStripMenuItem.Size = new Size(224, 26);
+            encodeToolStripMenuItem.Size = new Size(144, 26);
             encodeToolStripMenuItem.Text = "Encode";
             encodeToolStripMenuItem.Click += encodeToolStripMenuItem_Click;
             // 
             // decodeToolStripMenuItem
             // 
             decodeToolStripMenuItem.Name = "decodeToolStripMenuItem";
-            decodeToolStripMenuItem.Size = new Size(224, 26);
+            decodeToolStripMenuItem.Size = new Size(144, 26);
             decodeToolStripMenuItem.Text = "Decode";
             decodeToolStripMenuItem.Click += decodeToolStripMenuItem_Click;
+            // 
+            // gammaCipherToolStripMenuItem
+            // 
+            gammaCipherToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { encodeToolStripMenuItem1, decodeToolStripMenuItem1 });
+            gammaCipherToolStripMenuItem.Name = "gammaCipherToolStripMenuItem";
+            gammaCipherToolStripMenuItem.Size = new Size(224, 26);
+            gammaCipherToolStripMenuItem.Text = "Gamma Cipher";
+            // 
+            // encodeToolStripMenuItem1
+            // 
+            encodeToolStripMenuItem1.Name = "encodeToolStripMenuItem1";
+            encodeToolStripMenuItem1.Size = new Size(224, 26);
+            encodeToolStripMenuItem1.Text = "Encode";
+            encodeToolStripMenuItem1.Click += encodeToolStripMenuItem1_Click;
+            // 
+            // decodeToolStripMenuItem1
+            // 
+            decodeToolStripMenuItem1.Name = "decodeToolStripMenuItem1";
+            decodeToolStripMenuItem1.Size = new Size(224, 26);
+            decodeToolStripMenuItem1.Text = "Decode";
+            decodeToolStripMenuItem1.Click += decodeToolStripMenuItem1_Click;
             // 
             // helpToolStripMenuItem
             // 
@@ -572,5 +596,8 @@
         private ToolStripMenuItem caesarCipherToolStripMenuItem;
         private ToolStripMenuItem encodeToolStripMenuItem;
         private ToolStripMenuItem decodeToolStripMenuItem;
+        private ToolStripMenuItem gammaCipherToolStripMenuItem;
+        private ToolStripMenuItem encodeToolStripMenuItem1;
+        private ToolStripMenuItem decodeToolStripMenuItem1;
     }
 }

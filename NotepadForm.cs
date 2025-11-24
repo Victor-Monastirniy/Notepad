@@ -371,6 +371,11 @@ namespace Notepad
 
         private void encodeToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(MainRichTextBox.Text))
+            {
+                MessageBox.Show("Current file is empty. Please enter text to encode.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             string userInput = Interaction.InputBox("Enter shift value (integer):", "Caesar Cipher Encode", "3");
 
             if (string.IsNullOrEmpty(userInput))
@@ -393,6 +398,11 @@ namespace Notepad
 
         private void decodeToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(MainRichTextBox.Text))
+            {
+                MessageBox.Show("Current file is empty. Please enter text to decode.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             string userInput = Interaction.InputBox("Enter shift value (integer):", "Caesar Cipher Decode", "3");
 
             if (string.IsNullOrEmpty(userInput))
@@ -409,6 +419,48 @@ namespace Notepad
             {
                 MessageBox.Show("Invalid shift value. Please enter a valid positive integer.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 MessageToolStripStatusLabel.Text = "Decoding failed.";
+            }
+        }
+
+        private void encodeToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(MainRichTextBox.Text))
+            {
+                MessageBox.Show("Current file is empty. Please enter text to encode.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            GammaCipherEncode gammaCipher = new GammaCipherEncode(MainRichTextBox.Text);
+            DialogResult result = gammaCipher.ShowDialog();
+
+            if (result == DialogResult.OK && !string.IsNullOrEmpty(gammaCipher.gamma))
+            {
+                MainRichTextBox.Text = Encoders.GammaCipher.Encode(MainRichTextBox.Text, gammaCipher.gamma, Encoders.GammaCipher.Alphabet);
+                MessageToolStripStatusLabel.Text = "Text encoded with Gamma Cipher.";
+            }
+            else
+            {
+                MessageToolStripStatusLabel.Text = "Text encryption with Gamma cancelled";
+            }
+        }
+
+        private void decodeToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(MainRichTextBox.Text))
+            {
+                MessageBox.Show("Current file is empty. Please enter text to decode.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            GammaCipherDecode gammaCipher = new GammaCipherDecode(MainRichTextBox.Text);
+            DialogResult result = gammaCipher.ShowDialog();
+
+            if (result == DialogResult.OK && !string.IsNullOrEmpty(gammaCipher.gamma))
+            {
+                MainRichTextBox.Text = Encoders.GammaCipher.Decode(MainRichTextBox.Text, gammaCipher.gamma, Encoders.GammaCipher.Alphabet);
+                MessageToolStripStatusLabel.Text = "Text decoded with Gamma Cipher.";
+            }
+            else
+            {
+                MessageToolStripStatusLabel.Text = "Text decryption with Gamma cancelled";
             }
         }
     }
