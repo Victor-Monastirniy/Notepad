@@ -56,8 +56,13 @@
             italicToolStripMenuItem = new ToolStripMenuItem();
             underlineToolStripMenuItem = new ToolStripMenuItem();
             strikethroughToolStripMenuItem = new ToolStripMenuItem();
+            ciphersToolStripMenuItem = new ToolStripMenuItem();
+            caesarCipherToolStripMenuItem = new ToolStripMenuItem();
+            encodeToolStripMenuItem = new ToolStripMenuItem();
+            decodeToolStripMenuItem = new ToolStripMenuItem();
             helpToolStripMenuItem = new ToolStripMenuItem();
             aboutNotepadToolStripMenuItem = new ToolStripMenuItem();
+            developerToolStripMenuItem = new ToolStripMenuItem();
             MainRichTextBox = new RichTextBox();
             contextMenuStrip1 = new ContextMenuStrip(components);
             undoToolStripMenuItem1 = new ToolStripMenuItem();
@@ -77,7 +82,6 @@
             MessageToolStripStatusLabel = new ToolStripStatusLabel();
             CapsToolStripStatusLabel = new ToolStripStatusLabel();
             toolStrip1 = new ToolStrip();
-            developerToolStripMenuItem = new ToolStripMenuItem();
             MainMenuStrip.SuspendLayout();
             contextMenuStrip1.SuspendLayout();
             toolStripContainer1.BottomToolStripPanel.SuspendLayout();
@@ -90,7 +94,7 @@
             // MainMenuStrip
             // 
             MainMenuStrip.ImageScalingSize = new Size(20, 20);
-            MainMenuStrip.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, editToolStripMenuItem, formatToolStripMenuItem, helpToolStripMenuItem });
+            MainMenuStrip.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, editToolStripMenuItem, formatToolStripMenuItem, ciphersToolStripMenuItem, helpToolStripMenuItem });
             MainMenuStrip.Location = new Point(0, 0);
             MainMenuStrip.Name = "MainMenuStrip";
             MainMenuStrip.Size = new Size(800, 28);
@@ -275,6 +279,34 @@
             strikethroughToolStripMenuItem.Text = "Strikethrough";
             strikethroughToolStripMenuItem.Click += strikethroughToolStripMenuItem_Click;
             // 
+            // ciphersToolStripMenuItem
+            // 
+            ciphersToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { caesarCipherToolStripMenuItem });
+            ciphersToolStripMenuItem.Name = "ciphersToolStripMenuItem";
+            ciphersToolStripMenuItem.Size = new Size(72, 24);
+            ciphersToolStripMenuItem.Text = "Ciphers";
+            // 
+            // caesarCipherToolStripMenuItem
+            // 
+            caesarCipherToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { encodeToolStripMenuItem, decodeToolStripMenuItem });
+            caesarCipherToolStripMenuItem.Name = "caesarCipherToolStripMenuItem";
+            caesarCipherToolStripMenuItem.Size = new Size(224, 26);
+            caesarCipherToolStripMenuItem.Text = "Caesar Cipher";
+            // 
+            // encodeToolStripMenuItem
+            // 
+            encodeToolStripMenuItem.Name = "encodeToolStripMenuItem";
+            encodeToolStripMenuItem.Size = new Size(224, 26);
+            encodeToolStripMenuItem.Text = "Encode";
+            encodeToolStripMenuItem.Click += encodeToolStripMenuItem_Click;
+            // 
+            // decodeToolStripMenuItem
+            // 
+            decodeToolStripMenuItem.Name = "decodeToolStripMenuItem";
+            decodeToolStripMenuItem.Size = new Size(224, 26);
+            decodeToolStripMenuItem.Text = "Decode";
+            decodeToolStripMenuItem.Click += decodeToolStripMenuItem_Click;
+            // 
             // helpToolStripMenuItem
             // 
             helpToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { aboutNotepadToolStripMenuItem, developerToolStripMenuItem });
@@ -285,9 +317,16 @@
             // aboutNotepadToolStripMenuItem
             // 
             aboutNotepadToolStripMenuItem.Name = "aboutNotepadToolStripMenuItem";
-            aboutNotepadToolStripMenuItem.Size = new Size(224, 26);
+            aboutNotepadToolStripMenuItem.Size = new Size(196, 26);
             aboutNotepadToolStripMenuItem.Text = "&About Notepad";
             aboutNotepadToolStripMenuItem.Click += aboutNotepadToolStripMenuItem_Click;
+            // 
+            // developerToolStripMenuItem
+            // 
+            developerToolStripMenuItem.Name = "developerToolStripMenuItem";
+            developerToolStripMenuItem.Size = new Size(196, 26);
+            developerToolStripMenuItem.Text = "Developer";
+            developerToolStripMenuItem.Click += developerToolStripMenuItem_Click;
             // 
             // MainRichTextBox
             // 
@@ -451,13 +490,6 @@
             toolStrip1.Size = new Size(112, 25);
             toolStrip1.TabIndex = 0;
             // 
-            // developerToolStripMenuItem
-            // 
-            developerToolStripMenuItem.Name = "developerToolStripMenuItem";
-            developerToolStripMenuItem.Size = new Size(224, 26);
-            developerToolStripMenuItem.Text = "Developer";
-            developerToolStripMenuItem.Click += developerToolStripMenuItem_Click;
-            // 
             // NotepadForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -536,5 +568,9 @@
         private ToolStripMenuItem pasteToolStripMenuItem;
         private ToolStripSeparator toolStripMenuItem6;
         private ToolStripMenuItem developerToolStripMenuItem;
+        private ToolStripMenuItem ciphersToolStripMenuItem;
+        private ToolStripMenuItem caesarCipherToolStripMenuItem;
+        private ToolStripMenuItem encodeToolStripMenuItem;
+        private ToolStripMenuItem decodeToolStripMenuItem;
     }
 }

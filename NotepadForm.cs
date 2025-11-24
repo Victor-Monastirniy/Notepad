@@ -2,6 +2,7 @@ using System.Drawing.Printing;
 using System.IO;
 using System.Reflection.Metadata;
 using System.Windows.Forms;
+using Microsoft.VisualBasic;
 
 namespace Notepad
 {
@@ -366,6 +367,49 @@ namespace Notepad
         private void developerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Developed by Viktor Monastyrnyi (on 24.11.2025)", "Developer Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void encodeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string userInput = Interaction.InputBox("Enter shift value (integer):", "Caesar Cipher Encode", "3");
+
+            if (string.IsNullOrEmpty(userInput))
+            {
+                return; // User cancelled
+            }
+            if (int.TryParse(userInput, out int shift) && shift > 0)
+            {
+                string encodedText = Encoders.CaesarCipher.Encode(MainRichTextBox.Text, shift, Encoders.CaesarCipher.Alphabet);
+                MainRichTextBox.Text = encodedText;
+                MessageToolStripStatusLabel.Text = "Text encoded with Caesar Cipher.";
+            }
+            else
+            {
+                MessageBox.Show("Invalid shift value. Please enter a valid positive integer.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageToolStripStatusLabel.Text = "Encoding failed.";
+            }
+
+        }
+
+        private void decodeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string userInput = Interaction.InputBox("Enter shift value (integer):", "Caesar Cipher Decode", "3");
+
+            if (string.IsNullOrEmpty(userInput))
+            {
+                return; // User cancelled
+            }
+            if (int.TryParse(userInput, out int shift) && shift > 0)
+            {
+                string decodedText = Encoders.CaesarCipher.Decode(MainRichTextBox.Text, shift, Encoders.CaesarCipher.Alphabet);
+                MainRichTextBox.Text = decodedText;
+                MessageToolStripStatusLabel.Text = "Text decoded with Caesar Cipher.";
+            }
+            else
+            {
+                MessageBox.Show("Invalid shift value. Please enter a valid positive integer.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageToolStripStatusLabel.Text = "Decoding failed.";
+            }
         }
     }
 }
