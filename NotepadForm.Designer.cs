@@ -63,6 +63,10 @@
             gammaCipherToolStripMenuItem = new ToolStripMenuItem();
             encodeToolStripMenuItem1 = new ToolStripMenuItem();
             decodeToolStripMenuItem1 = new ToolStripMenuItem();
+            nETCipherToolStripMenuItem = new ToolStripMenuItem();
+            dESToolStripMenuItem = new ToolStripMenuItem();
+            encryptToolStripMenuItem = new ToolStripMenuItem();
+            decryptToolStripMenuItem = new ToolStripMenuItem();
             helpToolStripMenuItem = new ToolStripMenuItem();
             aboutNotepadToolStripMenuItem = new ToolStripMenuItem();
             developerToolStripMenuItem = new ToolStripMenuItem();
@@ -284,7 +288,7 @@
             // 
             // ciphersToolStripMenuItem
             // 
-            ciphersToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { caesarCipherToolStripMenuItem, gammaCipherToolStripMenuItem });
+            ciphersToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { caesarCipherToolStripMenuItem, gammaCipherToolStripMenuItem, nETCipherToolStripMenuItem });
             ciphersToolStripMenuItem.Name = "ciphersToolStripMenuItem";
             ciphersToolStripMenuItem.Size = new Size(72, 24);
             ciphersToolStripMenuItem.Text = "Ciphers";
@@ -320,16 +324,44 @@
             // encodeToolStripMenuItem1
             // 
             encodeToolStripMenuItem1.Name = "encodeToolStripMenuItem1";
-            encodeToolStripMenuItem1.Size = new Size(224, 26);
+            encodeToolStripMenuItem1.Size = new Size(144, 26);
             encodeToolStripMenuItem1.Text = "Encode";
             encodeToolStripMenuItem1.Click += encodeToolStripMenuItem1_Click;
             // 
             // decodeToolStripMenuItem1
             // 
             decodeToolStripMenuItem1.Name = "decodeToolStripMenuItem1";
-            decodeToolStripMenuItem1.Size = new Size(224, 26);
+            decodeToolStripMenuItem1.Size = new Size(144, 26);
             decodeToolStripMenuItem1.Text = "Decode";
             decodeToolStripMenuItem1.Click += decodeToolStripMenuItem1_Click;
+            // 
+            // nETCipherToolStripMenuItem
+            // 
+            nETCipherToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { dESToolStripMenuItem });
+            nETCipherToolStripMenuItem.Name = "nETCipherToolStripMenuItem";
+            nETCipherToolStripMenuItem.Size = new Size(224, 26);
+            nETCipherToolStripMenuItem.Text = ".NET Cipher";
+            // 
+            // dESToolStripMenuItem
+            // 
+            dESToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { encryptToolStripMenuItem, decryptToolStripMenuItem });
+            dESToolStripMenuItem.Name = "dESToolStripMenuItem";
+            dESToolStripMenuItem.Size = new Size(224, 26);
+            dESToolStripMenuItem.Text = "DES";
+            // 
+            // encryptToolStripMenuItem
+            // 
+            encryptToolStripMenuItem.Name = "encryptToolStripMenuItem";
+            encryptToolStripMenuItem.Size = new Size(224, 26);
+            encryptToolStripMenuItem.Text = "&Encrypt";
+            encryptToolStripMenuItem.Click += encryptToolStripMenuItem_Click;
+            // 
+            // decryptToolStripMenuItem
+            // 
+            decryptToolStripMenuItem.Name = "decryptToolStripMenuItem";
+            decryptToolStripMenuItem.Size = new Size(224, 26);
+            decryptToolStripMenuItem.Text = "&Decrypt";
+            decryptToolStripMenuItem.Click += decryptToolStripMenuItem_Click;
             // 
             // helpToolStripMenuItem
             // 
@@ -599,5 +631,9 @@
         private ToolStripMenuItem gammaCipherToolStripMenuItem;
         private ToolStripMenuItem encodeToolStripMenuItem1;
         private ToolStripMenuItem decodeToolStripMenuItem1;
+        private ToolStripMenuItem nETCipherToolStripMenuItem;
+        private ToolStripMenuItem dESToolStripMenuItem;
+        private ToolStripMenuItem encryptToolStripMenuItem;
+        private ToolStripMenuItem decryptToolStripMenuItem;
     }
 }

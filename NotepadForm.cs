@@ -3,6 +3,7 @@ using System.IO;
 using System.Reflection.Metadata;
 using System.Windows.Forms;
 using Microsoft.VisualBasic;
+using Notepad.Encoders;
 
 namespace Notepad
 {
@@ -133,9 +134,11 @@ namespace Notepad
 
                 isCurrentFileSaved = true;
                 isCurrentFileDirty = false;
+
+                MessageToolStripStatusLabel.Text = "Changes saved.";
             }
 
-            MessageToolStripStatusLabel.Text = "Changes saved.";
+
         }
 
         // Save As
@@ -164,6 +167,10 @@ namespace Notepad
                 currentFileName = saveFileDialog.FileName;
 
                 MessageToolStripStatusLabel.Text = "File saved.";
+            }
+            else
+            {
+                MessageToolStripStatusLabel.Text = "File save cancelled.";
             }
         }
 
@@ -461,6 +468,62 @@ namespace Notepad
             else
             {
                 MessageToolStripStatusLabel.Text = "Text decryption with Gamma cancelled";
+            }
+        }
+
+        private void encryptToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(MainRichTextBox.Text))
+            {
+                MessageBox.Show("Current file is empty. Please enter text to encode.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            DESCipherEncrypt desCipherEncrypt = new DESCipherEncrypt();
+            DialogResult result = desCipherEncrypt.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                try
+                {
+                    MainRichTextBox.Text = Encoders.CryptoProvider.Encrypt(MainRichTextBox.Text, desCipherEncrypt.key, desCipherEncrypt.iv, CryptoProvider.GetCipherModeFromString(desCipherEncrypt.mode));
+                    MessageToolStripStatusLabel.Text = "Text encrypted with DES Cipher.";
+                }
+                catch (System.Security.Cryptography.CryptographicException)
+                {
+                    MessageBox.Show("Encryption failed. Please ensure that the key, IV, and cipher mode are correct.", "Encryption Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageToolStripStatusLabel.Text = "Text encryption with DES failed.";
+                }
+                
+            }
+            else
+            {
+                MessageToolStripStatusLabel.Text = "Text encryption with DES cancelled";
+            }
+        }
+
+        private void decryptToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(MainRichTextBox.Text))
+            {
+                MessageBox.Show("Current file is empty. Please enter text to encode.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            DESCipherDecrypt desCipherDecrypt = new DESCipherDecrypt();
+            DialogResult result = desCipherDecrypt.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                try
+                {
+                    MainRichTextBox.Text = Encoders.CryptoProvider.Decrypt(MainRichTextBox.Text, desCipherDecrypt.key, desCipherDecrypt.iv, CryptoProvider.GetCipherModeFromString(desCipherDecrypt.mode));
+                    MessageToolStripStatusLabel.Text = "Text decrypted with DES Cipher.";
+                } catch (System.Security.Cryptography.CryptographicException)
+                {
+                    MessageBox.Show("Decryption failed. Please ensure that the key, IV, and cipher mode are correct.", "Decryption Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageToolStripStatusLabel.Text = "Text decryption with DES failed.";
+                }
+                
+            } else
+            {
+                MessageToolStripStatusLabel.Text = "Text decryption with DES cancelled";
             }
         }
     }
